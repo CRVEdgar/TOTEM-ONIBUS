@@ -52,4 +52,14 @@ public class ItinerarioDTO {
     public void setHorario(LocalDateTime horario) {
         this.horario = horario;
     }
+
+    @Override
+    public String toString() {
+        return "ItinerarioDTO{" +
+                "local='" + local + '\'' +
+                ", referencia='" + referencia + '\'' +
+                ", tipo='" + tipo + '\'' +
+                ", horario=" + horario +
+                '}';
+    }
 }

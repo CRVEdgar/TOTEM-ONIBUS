@@ -1,22 +1,19 @@
 package com.example.totemBus.api.controller;
 
 import com.example.totemBus.api.dto.ItinerarioDTO;
-import com.example.totemBus.api.dto.OnibusListDTO;
-import com.example.totemBus.api.dto.OnibusRequest;
-import com.example.totemBus.model.entity.Onibus;
 import com.example.totemBus.model.entity.enums.Tipo_Item_Itinerario;
+import com.example.totemBus.model.service.ItinerarioService;
 import com.example.totemBus.model.service.OnibusService;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
 import static com.example.totemBus.api.core.MappinObjects.convertListNomeBus;
+import static com.example.totemBus.api.core.MappinObjects.convertListNomeBusModel;
 
 @RestController
 @RequestMapping("/itinerario")
@@ -24,15 +21,18 @@ public class ItinerarioController {
 
     private final OnibusService onibusService;
 
-    public ItinerarioController(OnibusService onibusService) {
+    private final ItinerarioService service;
+
+    public ItinerarioController(OnibusService onibusService, ItinerarioService service) {
         this.onibusService = onibusService;
+        this.service = service;
     }
 
     @GetMapping("/findAllBus")
     @ResponseStatus(HttpStatus.OK)
     public Set<String> findAllBus(){
 
-        return convertListNomeBus(onibusService.buscarTodos());
+        return convertListNomeBusModel(service.findAllModel());
     }
 
     @GetMapping("/findByLinhaBus{linhaOnibus}{sentido}")
@@ -45,6 +45,7 @@ public class ItinerarioController {
 
         List<ItinerarioDTO> itinerarioResponse2 = new ArrayList<>();
 
+        List<ItinerarioDTO> itinerarioDB = service.montarItinerario(linhaOnibus);
 
 
         ItinerarioDTO um = new ItinerarioDTO();
@@ -70,9 +71,11 @@ public class ItinerarioController {
         itinerarioResponse.add(dois);
         itinerarioResponse2.add(tres);
 
-        if(linhaOnibus.equals("Vila Raposa")){
-            return itinerarioResponse2;
-        }
-        return itinerarioResponse;
+        return itinerarioDB;
+
+//        if(linhaOnibus.equals("Vila Raposa")){
+//            return itinerarioResponse2;
+//        }
+//        return itinerarioResponse;
     }
 }

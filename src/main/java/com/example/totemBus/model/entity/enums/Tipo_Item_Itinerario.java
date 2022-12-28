@@ -7,5 +7,6 @@ public enum Tipo_Item_Itinerario {
     HOSPITAL,
     ESCOLA,
     SHOPPING,
-    PRAIA
+    PRAIA,
+    TERMINAL
 }

@@ -2,6 +2,7 @@ package com.example.totemBus.api.core;
 
 import com.example.totemBus.api.dto.BairroDTO;
 import com.example.totemBus.model.entity.Bairro;
+import com.example.totemBus.model.entity.ItinerarioModelo;
 import com.example.totemBus.model.entity.Onibus;
 
 import java.util.LinkedHashSet;
@@ -30,6 +31,14 @@ public class MappinObjects {
         Set<String> namesBus = new LinkedHashSet<>();
         for(Onibus bus: onibusList){
             namesBus.add(bus.getNome());
+        }
+        return namesBus;
+    }
+
+    public static final Set<String> convertListNomeBusModel(List<ItinerarioModelo> onibusList){
+        Set<String> namesBus = new LinkedHashSet<>();
+        for(ItinerarioModelo bus: onibusList){
+            namesBus.add(bus.getOnibus());
         }
         return namesBus;
     }

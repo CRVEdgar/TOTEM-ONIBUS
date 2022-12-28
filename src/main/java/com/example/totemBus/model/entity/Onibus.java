@@ -22,16 +22,20 @@ public class Onibus {
     private Double tarifa;
     private String cor;
 
+    @OneToMany(mappedBy = "onibus")
+    private Set<Itinerario> itinerario;
+
     public Onibus() {
     }
 
-    public Onibus(String nome, Set<Bairro> bairros, LocalDateTime hrSaida, LocalDateTime hrChegada, Double tarifa, String cor) {
+    public Onibus(String nome, Set<Bairro> bairros, LocalDateTime hrSaida, LocalDateTime hrChegada, Double tarifa, String cor, Set<Itinerario> itinerario) {
         this.nome = nome;
         this.bairros = bairros;
         this.hrSaida = hrSaida;
         this.hrChegada = hrChegada;
         this.tarifa = tarifa;
         this.cor = cor;
+        this.itinerario = itinerario;
     }
 
     public Long getId() {

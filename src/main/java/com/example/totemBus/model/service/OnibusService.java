@@ -4,6 +4,8 @@ import com.example.totemBus.model.entity.Onibus;
 import com.example.totemBus.model.repository.OnibusRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class OnibusService {
 
@@ -26,5 +28,8 @@ public class OnibusService {
         return repository.findByNome(nome);
     }
 
-
+    public List<Onibus> buscarTodos(){
+        List<Onibus> list =  repository.findAll();
+        return list;
+    }
 }

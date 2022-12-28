@@ -1,7 +1,6 @@
 package com.example.totemBus.model.entity;
 
 import javax.persistence.*;
-import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
@@ -18,17 +17,22 @@ public class Bairro {
     @ElementCollection(targetClass=String.class)
     private Set<String> ruas;
 
-    @Column
-    @ElementCollection(targetClass=String.class)
-    private Set<String> pontoReferencia;
+//    @Column
+//    @ElementCollection(targetClass=String.class)
+//    private Set<String> pontoReferencia;
+
+    @OneToMany(mappedBy = "bairro")
+    private Set<BairroPontoReferencia> bairroPontoReferencia;
+
+
 
     public Bairro() {
     }
 
-    public Bairro(String nome, Set<String> ruas, Set<String> pontoReferencia) {
+    public Bairro(String nome, Set<String> ruas, Set<BairroPontoReferencia> bairroPontoReferencia) {
         this.nome = nome;
         this.ruas = ruas;
-        this.pontoReferencia = pontoReferencia;
+        this.bairroPontoReferencia = bairroPontoReferencia;
     }
 
     public String getNome() {
@@ -45,14 +49,6 @@ public class Bairro {
 
     public void setRuas(Set<String> ruas) {
         this.ruas = ruas;
-    }
-
-    public Set<String> getPontoReferencia() {
-        return pontoReferencia;
-    }
-
-    public void setPontoReferencia(Set<String> pontoReferencia) {
-        this.pontoReferencia = pontoReferencia;
     }
 
     public Long getId() {
@@ -78,7 +74,7 @@ public class Bairro {
                 "id=" + id +
                 ", nome='" + nome + '\'' +
                 ", ruas=" + ruas +
-                ", pontoReferencia=" + pontoReferencia +
+                ", bairroPontoReferencia=" + bairroPontoReferencia +
                 '}';
     }
 }

@@ -41,41 +41,43 @@ public class ItinerarioController {
 
         System.out.println("OBJECT REQUEST: " + linhaOnibus + " || " + sentido);
 
-        List<ItinerarioDTO> itinerarioResponse = new ArrayList<>();
-
-        List<ItinerarioDTO> itinerarioResponse2 = new ArrayList<>();
-
         List<ItinerarioDTO> itinerarioDB = service.montarItinerario(linhaOnibus);
 
+        if(sentido.equals("CENTRO")){
+            return itinerarioDB;
+        }else{
 
-        ItinerarioDTO um = new ItinerarioDTO();
-        um.setLocal("vila nova");
-        um.setReferencia("ifma monte castelo");
-        um.setTipo(Tipo_Item_Itinerario.ESCOLA.toString());
-        um.setHorario(LocalDateTime.now());
+            List<ItinerarioDTO> invertList = new ArrayList<>();
 
-        ItinerarioDTO dois = new ItinerarioDTO();
-        dois.setLocal("vila vlha");
-        dois.setReferencia("ifma marana");
-        dois.setTipo(Tipo_Item_Itinerario.ESCOLA.toString());
-        dois.setHorario(LocalDateTime.now());
+            for(int i=itinerarioDB.size()-1; i>= 0; i--){
+                invertList.add(itinerarioDB.get(i));
+            }
+            return invertList;
+        }
+//        ItinerarioDTO um = new ItinerarioDTO();
+//        um.setLocal("vila nova");
+//        um.setReferencia("ifma monte castelo");
+//        um.setTipo(Tipo_Item_Itinerario.ESCOLA.toString());
+//        um.setHorario(LocalDateTime.now());
+//
+//        ItinerarioDTO dois = new ItinerarioDTO();
+//        dois.setLocal("vila vlha");
+//        dois.setReferencia("ifma marana");
+//        dois.setTipo(Tipo_Item_Itinerario.ESCOLA.toString());
+//        dois.setHorario(LocalDateTime.now());
+//
+//        ItinerarioDTO tres = new ItinerarioDTO();
+//        tres.setLocal("novo");
+//        tres.setReferencia("ifma novo");
+//        tres.setTipo(Tipo_Item_Itinerario.PONTO_TURISTICO.toString());
+//        tres.setHorario(LocalDateTime.now());
+//
+//
+//        itinerarioResponse.add(um);
+//        itinerarioResponse.add(dois);
+//        itinerarioResponse2.add(tres);
 
-        ItinerarioDTO tres = new ItinerarioDTO();
-        tres.setLocal("novo");
-        tres.setReferencia("ifma novo");
-        tres.setTipo(Tipo_Item_Itinerario.PONTO_TURISTICO.toString());
-        tres.setHorario(LocalDateTime.now());
+//        return itinerarioDB;
 
-
-        itinerarioResponse.add(um);
-        itinerarioResponse.add(dois);
-        itinerarioResponse2.add(tres);
-
-        return itinerarioDB;
-
-//        if(linhaOnibus.equals("Vila Raposa")){
-//            return itinerarioResponse2;
-//        }
-//        return itinerarioResponse;
     }
 }
